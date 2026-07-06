@@ -1,0 +1,5 @@
+Requirements that used in this projects(basic)
+openai
+langchain
+python-dotenv
+requests
