@@ -1,4 +1,4 @@
-Requirements that used in this projects(basic)
+Requirements that used in this projects(basic):
 openai
 langchain
 python-dotenv
