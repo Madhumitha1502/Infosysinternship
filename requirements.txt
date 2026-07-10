@@ -1,5 +1,7 @@
 Requirements that used in this projects(basic):
-openai
+pandas
+openpyxl
 langchain
+langgraph
 python-dotenv
-requests
+streamlit
