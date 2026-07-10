@@ -1,76 +1,125 @@
-# AI Agent Coordination & Decision Engine
+# AI Agents Coordination & Decision Engine
 
-## Project Overview
+A multi-agent cybersecurity system that automates cyber threat detection, attack analysis, decision making, incident response, alert generation, and reporting. The project is designed using a modular AI agent architecture where each agent performs a dedicated responsibility and collaborates with other agents to handle security incidents efficiently.
 
-AI Agent Coordination & Decision Engine is an intelligent system designed to coordinate multiple AI agents for effective cyber attack detection, analysis, and response. The project focuses on improving decision-making by enabling specialized AI agents to collaborate and recommend the most appropriate response to different cyber security incidents.
 
-## Problem Statement
 
-Organizations face various cyber threats such as phishing, ransomware, and DDoS attacks. Traditional security systems often work independently, leading to delayed or inefficient responses. This project aims to build a coordinated AI-based decision engine that improves response accuracy and reduces decision time.
+## Overview
+
+Modern organizations generate a large volume of security logs every day. Analyzing these logs manually can delay incident detection and response.
+
+This project introduces a coordinated AI agent framework that processes security events through multiple independent agents. Each agent performs a specific task and passes its output to the next agent, creating an automated cyber incident response workflow.
+
+
 
 ## Objectives
 
-- Detect different cyber attack scenarios.
-- Coordinate multiple AI agents.
-- Analyze attack severity.
-- Generate the best response strategy.
-- Produce a final decision report.
+- Detect suspicious cyber activities from security logs.
+- Analyze detected events to identify attack types.
+- Evaluate attack severity.
+- Recommend appropriate response actions.
+- Generate security alerts.
+- Prepare incident reports automatically.
 
-## Proposed AI Agents
 
-- Threat Detection Agent
-- Task Coordination Agent
-- Response Recommendation Agent
-- Decision Engine
+
+
+
+## AI Agents
+
+### Detection Agent
+Monitors incoming cyber logs and identifies suspicious activities based on predefined security rules.
+
+### Analysis Agent
+Analyzes suspicious events, classifies attack types, and assigns severity levels.
+
+### Decision Agent
+Determines the most suitable response based on the analyzed threat.
+
+### Response Agent
+Executes the recommended mitigation strategy.
+
+### Alert Agent
+Generates alerts for administrators with relevant incident details.
+
+### Report Agent
+Creates a structured incident report summarizing the complete response process.
+
 
 ## Technologies
 
 - Python
+- Pandas
+- OpenPyXL
+- LangChain
+- LangGraph
+- Streamlit
 - Git & GitHub
-- Large Language Models (LLM)
-- Machine Learning (Future Scope)
 
-## Workflow
 
-Cyber Attack Input
-↓
-Threat Detection Agent
-↓
-Task Coordination Agent
-↓
-Response Recommendation Agent
-↓
-Decision Engine
-↓
-Final Response Report
 
-## Repository Structure
+## Project Structure
 
-```
-AI-Agent-Coordination-Decision-Engine/
+
+AI-Agents-Coordination-Decision-Engine/
 │
-├── README.md
-├── requirements.txt
-├── main.py
 ├── agents/
-├── coordinator/
-├── simulation/
-├── utils/
-└── outputs/
-```
+│   ├── detection_agent.py
+│   ├── analysis_agent.py
+│   ├── decision_agent.py
+│   ├── response_agent.py
+│   ├── alert_agent.py
+│   └── report_agent.py
+│
+├── prompts/
+│
+├── data/
+│
+├── main.py
+├── requirements.txt
+└── README.md
 
-## Current Status
 
-🚧 Project is currently under development as part of the Infosys Springboard Program.
+
+
+## Current Progress
+
+### Completed
+
+- Project initialization
+- Repository setup
+- Environment configuration
+- Detection Agent
+- AI agent framework
+- Prompt templates
+- Sample cyber log dataset
+
+### In Progress
+
+- Analysis Agent
+- Decision Agent
+- Response Agent
+- Alert Agent
+- Report Generation
+- Streamlit Dashboard
+
+---
 
 ## Future Enhancements
 
-- Multi-agent communication
-- Real-time cyber attack simulation
-- LLM-based decision support
-- Interactive dashboard
-- Automated incident reporting
+- LLM-powered decision support
+- Real-time cyber log monitoring
+- Automated alert notifications
+- Interactive Streamlit dashboard
+- Cloud deployment
+- Performance optimization
 
-## Team
+---
 
-Infosys Springboard Project Team
+## Author
+
+**Madhumitha V**
+
+B.Tech Information Technology
+
+Nehru Institute of Engineering and Technology
