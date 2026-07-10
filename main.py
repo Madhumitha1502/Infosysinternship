@@ -1,3 +1,6 @@
+#this is the basic stru
+
+
 print("=" * 50)
 print("AI CYBER ATTACK RESPONSE COORDINATOR")
 print("=" * 50)
