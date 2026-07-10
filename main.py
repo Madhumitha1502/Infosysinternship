@@ -1,4 +1,4 @@
-#this is the basic stru
+#this is the basic structure of main
 
 
 print("=" * 50)
