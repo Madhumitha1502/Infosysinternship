@@ -1,32 +1,11 @@
 import pandas as pd
 import os
 
-# File Paths
-
-input_file = "data/cyber_logs_50_records.xlsx"
-output_file = "data/detected_logs.xlsx"
-
-
-# Check if Input File Exists
-
-if not os.path.exists(input_file):
-    print("❌ Error: Input file not found!")
-    exit()
-
-
-# Read Excel File
-
-df = pd.read_excel(input_file)
-
-print("=======================================")
-print(" AI Cyber Attack Response Coordinator ")
-print(" Detection Agent Started ")
-print("=======================================\n")
-
-
-# Detection Function
 
 def detect_activity(row):
+    """
+    Detect suspicious cyber activities based on predefined rules.
+    """
 
     # Rule 1 - Brute Force Detection
     if row["FailedLoginAttempts"] >= 10:
@@ -48,33 +27,45 @@ def detect_activity(row):
         return "Normal"
 
 
+def run_detection():
 
-# Apply Detection Rules
+    input_file = "data/cyber_logs_50_records.xlsx"
+    output_file = "data/detected_logs.xlsx"
 
-df["DetectionResult"] = df.apply(detect_activity, axis=1)
+    print("=" * 50)
+    print("DETECTION AGENT")
+    print("=" * 50)
+
+    # Check if dataset exists
+    if not os.path.exists(input_file):
+        print("❌ Error: Input file not found!")
+        return None
+
+    # Read dataset
+    df = pd.read_excel(input_file)
+
+    # Apply detection rules
+    df["DetectionResult"] = df.apply(detect_activity, axis=1)
+
+    # Count results
+    suspicious = (df["DetectionResult"] == "Suspicious").sum()
+    normal = (df["DetectionResult"] == "Normal").sum()
+
+    # Save output
+    df.to_excel(output_file, index=False)
+
+    # Display summary
+    print("\nDetection Completed Successfully!\n")
+    print(f"Total Records      : {len(df)}")
+    print(f"Suspicious Records : {suspicious}")
+    print(f"Normal Records     : {normal}")
+
+    print(f"\nOutput File : {output_file}")
+
+    # Return output for next agent
+    return output_file
 
 
-# Count Results
-
-suspicious = (df["DetectionResult"] == "Suspicious").sum()
-normal = (df["DetectionResult"] == "Normal").sum()
-
-
-# Save Output
-
-df.to_excel(output_file, index=False)
-
-
-# Console Output
-
-print("Detection Completed Successfully!\n")
-
-print(f"Total Records       : {len(df)}")
-print(f"Suspicious Records  : {suspicious}")
-print(f"Normal Records      : {normal}")
-
-print("\nDetected Logs Saved As:")
-print(output_file)
-
-print("\nFirst Five Records:\n")
-print(df.head())
+# Run only if this file is executed directly
+if __name__ == "__main__":
+    run_detection()
