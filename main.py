@@ -4,6 +4,7 @@ from agents.coordination_agent import run_coordination
 from agents.decision_agent import run_decision
 from agents.response_agent import run_response
 from agents.alert_agent import run_alert
+from agents.report_agent import run_report
 
 
 def main():
@@ -12,41 +13,66 @@ def main():
     print("        AI CYBER ATTACK RESPONSE COORDINATOR")
     print("=" * 70)
 
-    try:
-        print("\n[1/6] DETECTION AGENT")
-        run_detection()
-        print("Detection Agent Completed Successfully.\n")
+    print("\n[1/7] DETECTION AGENT")
+    detection = run_detection()
 
-        print("[2/6] ANALYSIS AGENT")
-        run_analysis()
-        print("Analysis Agent Completed Successfully.\n")
+    if detection is None:
+        return
 
-        print("[3/6] COORDINATION AGENT")
-        run_coordination()
-        print("Coordination Agent Completed Successfully.\n")
+    print("\nDetection Agent Completed Successfully.")
 
-        print("[4/6] DECISION AGENT")
-        run_decision()
-        print("Decision Agent Completed Successfully.\n")
+    print("\n[2/7] ANALYSIS AGENT")
+    analysis = run_analysis()
 
-        print("[5/6] RESPONSE AGENT")
-        run_response()
-        print("Response Agent Completed Successfully.\n")
+    if analysis is None:
+        return
 
-        print("[6/6] ALERT AGENT")
-        run_alert()
-        print("Alert Agent Completed Successfully.\n")
+    print("\nAnalysis Agent Completed Successfully.")
 
-        print("=" * 70)
-        print("ALL AGENTS EXECUTED SUCCESSFULLY")
-        print("CYBER ATTACK RESPONSE PIPELINE COMPLETED")
-        print("=" * 70)
+    print("\n[3/7] COORDINATION AGENT")
+    coordination = run_coordination()
 
-    except Exception as error:
+    if coordination is None:
+        return
 
-        print("\n❌ Pipeline Execution Failed")
-        print(f"Reason : {error}")
+    print("\nCoordination Agent Completed Successfully.")
 
+    print("\n[4/7] DECISION AGENT")
+    decision = run_decision()
+
+    if decision is None:
+        return
+
+    print("\nDecision Agent Completed Successfully.")
+
+    print("\n[5/7] RESPONSE AGENT")
+    response = run_response()
+
+    if response is None:
+        return
+
+    print("\nResponse Agent Completed Successfully.")
+
+    print("\n[6/7] ALERT AGENT")
+    alert = run_alert()
+
+    if alert is None:
+        return
+
+    print("\nAlert Agent Completed Successfully.")
+
+    print("\n[7/7] REPORT AGENT")
+    report = run_report()
+
+    if report is None:
+        return
+
+    print("\nReport Agent Completed Successfully.")
+
+    print("\n" + "=" * 70)
+    print(" ALL AGENTS EXECUTED SUCCESSFULLY")
+    print(" AI CYBER ATTACK RESPONSE PIPELINE COMPLETED")
+    print("=" * 70)
 
 
 if __name__ == "__main__":

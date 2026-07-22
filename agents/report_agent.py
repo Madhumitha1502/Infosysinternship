@@ -1,72 +1,110 @@
 import pandas as pd
 import os
+from datetime import datetime
 
 
-def execute_response(row):
+# ----------------------------------------
+# Report Agent
+# ----------------------------------------
+def run_report():
 
-    action = row["RecommendedAction"]
+    input_file = "data/alert_output.csv"
+    output_file = "data/final_report.csv"
 
-    if action == "Block IP Address":
-        return pd.Series([
-            "Executed",
-            "Attacker IP blocked successfully."
-        ])
+    print("=" * 60)
+    print("AI CYBER ATTACK RESPONSE COORDINATOR")
+    print("REPORT AGENT")
+    print("=" * 60)
 
-    elif action == "Quarantine Device":
-        return pd.Series([
-            "Executed",
-            "Device isolated from the network."
-        ])
-
-    elif action == "Enable Firewall Protection":
-        return pd.Series([
-            "Executed",
-            "Firewall rules updated successfully."
-        ])
-
-    elif action == "Disconnect Unknown Device":
-        return pd.Series([
-            "Executed",
-            "Unknown device disconnected."
-        ])
-
-    else:
-        return pd.Series([
-            "No Action",
-            "No response required."
-        ])
-
-
-def run_response():
-
-    input_file = "data/decision_logs.xlsx"
-    output_file = "data/response_logs.xlsx"
-
-    print("=" * 50)
-    print("RESPONSE AGENT")
-    print("=" * 50)
-
+    # Check Input File
     if not os.path.exists(input_file):
-        print("❌ Error: decision_logs.xlsx not found!")
+        print("❌ Alert output not found!")
         return None
 
-    df = pd.read_excel(input_file)
+    df = pd.read_csv(input_file)
 
-    df[["ResponseStatus", "ResponseMessage"]] = df.apply(
-        execute_response,
-        axis=1
+    if df.empty:
+        print("No incidents available.")
+        return None
+
+    # ----------------------------------------
+    # Summary
+    # ----------------------------------------
+
+    total_incidents = len(df)
+
+    attack_summary = (
+        df["AttackCategory"]
+        .value_counts()
+        .to_dict()
     )
 
-    df.to_excel(output_file, index=False)
+    severity_summary = (
+        df["Severity"]
+        .value_counts()
+        .to_dict()
+    )
 
-    print("\nResponse Execution Completed Successfully!\n")
+    tool_summary = (
+        df["SelectedTool"]
+        .value_counts()
+        .to_dict()
+    )
 
-    print(f"Total Records : {len(df)}")
+    response_summary = (
+        df["ResponseStatus"]
+        .value_counts()
+        .to_dict()
+    )
 
-    print(f"Output File : {output_file}")
+    alert_summary = (
+        df["AlertLevel"]
+        .value_counts()
+        .to_dict()
+    )
+
+    report = {
+        "Report Generated On": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "Total Incidents": total_incidents,
+        "Attack Summary": str(attack_summary),
+        "Severity Summary": str(severity_summary),
+        "Tool Usage Summary": str(tool_summary),
+        "Response Summary": str(response_summary),
+        "Alert Summary": str(alert_summary)
+    }
+
+    report_df = pd.DataFrame([report])
+
+    report_df.to_csv(output_file, index=False)
+
+    # ----------------------------------------
+    # Console Output
+    # ----------------------------------------
+
+    print("\n✅ Final Report Generated Successfully!\n")
+
+    print(f"Total Incidents : {total_incidents}")
+
+    print("\nAttack Categories")
+    print(df["AttackCategory"].value_counts())
+
+    print("\nSeverity Distribution")
+    print(df["Severity"].value_counts())
+
+    print("\nTool Usage")
+    print(df["SelectedTool"].value_counts())
+
+    print("\nAlert Levels")
+    print(df["AlertLevel"].value_counts())
+
+    print(f"\nOutput File : {output_file}")
 
     return output_file
 
 
+# ----------------------------------------
+# Main
+# ----------------------------------------
+
 if __name__ == "__main__":
-    run_response()
+    run_report()

@@ -8,20 +8,47 @@ from datetime import datetime
 # ----------------------------------------
 def select_decision(attack, priority):
 
-    if attack == "Malware":
-        return "Isolate Device"
+    try:
 
-    elif attack == "Brute Force":
-        return "Block Source IP"
+        if attack == "Malware":
+            return "Isolate Device"
 
-    elif attack == "DDoS":
-        return "Enable Rate Limiting"
+        elif attack == "Brute Force":
+            return "Block Source IP"
 
-    elif attack == "Unauthorized Device":
-        return "Disable Device Access"
+        elif attack == "DDoS":
+            return "Enable Rate Limiting"
 
-    else:
+        elif attack == "Unauthorized Device":
+            return "Disable Device Access"
+
+        else:
+            return "Continue Monitoring"
+
+    except Exception:
         return "Continue Monitoring"
+
+
+# ----------------------------------------
+# Select Enterprise Tool
+# ----------------------------------------
+def select_tool(decision):
+
+    tool_mapping = {
+
+        "Block Source IP": "Block IP Tool",
+
+        "Isolate Device": "Isolate Device Tool",
+
+        "Enable Rate Limiting": "Rate Limit Tool",
+
+        "Disable Device Access": "Isolate Device Tool",
+
+        "Continue Monitoring": "Monitoring Service"
+
+    }
+
+    return tool_mapping.get(decision, "Unknown Tool")
 
 
 # ----------------------------------------
@@ -52,35 +79,54 @@ def run_decision():
     print("DECISION AGENT")
     print("=" * 60)
 
-    # Check input file
+    # Check Input File
     if not os.path.exists(input_file):
+
         print("❌ Coordination output not found!")
         return None
 
-    # Read coordinated incidents
+    # Read Data
     df = pd.read_csv(input_file)
 
     if df.empty:
+
         print("No incidents available.")
         return None
 
     # Final Decision
     df["FinalDecision"] = df.apply(
+
         lambda row: select_decision(
-            row["AttackCategory"],
-            row["Priority"]
+
+            row.get("AttackCategory", ""),
+
+            row.get("Priority", "")
+
         ),
+
         axis=1
+
+    )
+
+    # Enterprise Tool Selection
+    df["SelectedTool"] = df["FinalDecision"].apply(
+
+        select_tool
+
     )
 
     # Execution Status
     df["ExecutionStatus"] = df["Priority"].apply(
+
         assign_status
+
     )
 
     # Decision Timestamp
     df["DecisionTime"] = datetime.now().strftime(
+
         "%Y-%m-%d %H:%M:%S"
+
     )
 
     # Save Output
@@ -94,6 +140,9 @@ def run_decision():
     print("\nExecution Status Distribution")
     print(df["ExecutionStatus"].value_counts())
 
+    print("\nSelected Tool Distribution")
+    print(df["SelectedTool"].value_counts())
+
     print("\nFinal Decision Distribution")
     print(df["FinalDecision"].value_counts())
 
@@ -106,4 +155,5 @@ def run_decision():
 # Main
 # ----------------------------------------
 if __name__ == "__main__":
+
     run_decision()

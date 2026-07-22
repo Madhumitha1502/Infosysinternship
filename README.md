@@ -1,118 +1,102 @@
-# AI Agents Coordination & Decision Engine
-
-A multi-agent cybersecurity system that automates cyber threat detection, attack analysis, decision making, incident response, alert generation, and reporting. The project is designed using a modular AI agent architecture where each agent performs a dedicated responsibility and collaborates with other agents to handle security incidents efficiently.
-
-
+# AI Cyber Attack Response Coordinator
 
 ## Overview
 
-Modern organizations generate a large volume of security logs every day. Analyzing these logs manually can delay incident detection and response.
+The AI Cyber Attack Response Coordinator is a multi-agent cybersecurity automation system developed as part of the Infosys Springboard Internship. The project automates the process of detecting cyber threats, analyzing incidents, coordinating responses, executing security actions, generating alerts, and producing a final incident report.
 
-This project introduces a coordinated AI agent framework that processes security events through multiple independent agents. Each agent performs a specific task and passes its output to the next agent, creating an automated cyber incident response workflow.
-
-
+---
 
 ## Objectives
 
-- Detect suspicious cyber activities from security logs.
-- Analyze detected events to identify attack types.
-- Evaluate attack severity.
-- Recommend appropriate response actions.
+- Detect suspicious cyber activities from network logs.
+- Analyze attack severity and classify threats.
+- Prioritize incidents based on risk level.
+- Recommend and execute appropriate response actions.
 - Generate security alerts.
-- Prepare incident reports automatically.
+- Produce a consolidated incident report.
 
+---
 
+## Key Features
 
+- Multi-Agent Cybersecurity Pipeline
+- Automated Threat Detection
+- Severity and Risk Analysis
+- Incident Prioritization
+- Intelligent Decision Making
+- Enterprise Security Tool Integration
+- Automated Response Execution
+- Email Alert Generation
+- Incident Report Generation
 
+---
 
-## AI Agents
-
-### Detection Agent
-Monitors incoming cyber logs and identifies suspicious activities based on predefined security rules.
-
-### Analysis Agent
-Analyzes suspicious events, classifies attack types, and assigns severity levels.
-
-### Decision Agent
-Determines the most suitable response based on the analyzed threat.
-
-### Response Agent
-Executes the recommended mitigation strategy.
-
-### Alert Agent
-Generates alerts for administrators with relevant incident details.
-
-### Report Agent
-Creates a structured incident report summarizing the complete response process.
-
-
-## Technologies
+## Technologies Used
 
 - Python
 - Pandas
-- OpenPyXL
-- LangChain
-- LangGraph
-- Streamlit
-- Git & GitHub
+- CSV
+- Multi-Agent Architecture
 
+---
 
+## Enterprise Security Tools
 
-## Project Structure
+- Block IP Tool
+- Isolate Device Tool
+- Rate Limit Tool
+- Email Alert Tool
 
+---
 
-AI-Agents-Coordination-Decision-Engine/
-│
-├── agents/
-│   ├── detection_agent.py
-│   ├── analysis_agent.py
-│   ├── decision_agent.py
-│   ├── response_agent.py
-│   ├── alert_agent.py
-│   └── report_agent.py
-│
-├── prompts/
-│
-├── data/
-│
-├── main.py
-├── requirements.txt
-└── README.md
+## Installation
 
+Install the required dependency:
 
+```bash
+pip install -r requirements.txt
+```
 
+---
 
-## Current Progress
+## Execution
 
-### Completed
+Run the complete project using:
 
-- Project initialization
-- Repository setup
-- Environment configuration
-- Detection Agent
-- AI agent framework
-- Prompt templates
-- Sample cyber log dataset
+```bash
+python main.py
+```
 
-### In Progress
+---
 
-- Analysis Agent
-- Decision Agent
-- Response Agent
-- Alert Agent
-- Report Generation
-- Streamlit Dashboard
+## Generated Outputs
+
+The system generates the following output files after execution:
+
+- detected_logs.csv
+- analyzed_logs.csv
+- coordinated_tasks.csv
+- decision_output.csv
+- response_output.csv
+- alert_output.csv
+- final_report.csv
 
 ---
 
 ## Future Enhancements
 
-- LLM-powered decision support
-- Real-time cyber log monitoring
-- Automated alert notifications
-- Interactive Streamlit dashboard
-- Cloud deployment
-- Performance optimization
+- Real-time Network Monitoring
+- SIEM Integration
+- Cloud Deployment
+- Dashboard Visualization
+- REST API Integration
+- AI-based Threat Intelligence
+
+---
+
+## License
+
+This project is developed for educational and internship purposes.
 
 ---
 
@@ -120,6 +104,4 @@ AI-Agents-Coordination-Decision-Engine/
 
 **Madhumitha V**
 
-B.Tech Information Technology
-
-Nehru Institute of Engineering and Technology
+Developed as part of the **Infosys Springboard Internship – Milestone 2**.

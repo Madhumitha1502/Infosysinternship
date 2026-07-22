@@ -4,18 +4,21 @@ from datetime import datetime
 
 
 # ----------------------------------------
-# Alert Level
+# Generate Alert Level
 # ----------------------------------------
-def get_alert_level(priority):
+def generate_alert_level(severity):
 
-    if priority == "P1":
+    if severity == "Critical":
         return "High"
 
-    elif priority == "P2":
+    elif severity == "High":
         return "Medium"
 
-    else:
+    elif severity == "Medium":
         return "Low"
+
+    else:
+        return "Info"
 
 
 # ----------------------------------------
@@ -23,23 +26,15 @@ def get_alert_level(priority):
 # ----------------------------------------
 def generate_alert_message(row):
 
-    attack = row["AttackCategory"]
-    priority = row["Priority"]
-    decision = row["FinalDecision"]
+    attack = row.get("AttackCategory", "")
+    decision = row.get("FinalDecision", "")
+    severity = row.get("Severity", "")
 
     return (
-        f"{attack} detected | "
-        f"Priority: {priority} | "
-        f"Action: {decision}"
+        f"{severity} Alert: "
+        f"{attack} detected. "
+        f"Response Action: {decision}."
     )
-
-
-# ----------------------------------------
-# Alert Status
-# ----------------------------------------
-def alert_status():
-
-    return "Sent"
 
 
 # ----------------------------------------
@@ -55,20 +50,24 @@ def run_alert():
     print("ALERT AGENT")
     print("=" * 60)
 
-    # Check file
+    # Check Input File
     if not os.path.exists(input_file):
+
         print("❌ Response output not found!")
         return None
 
-    # Read response output
+    # Read Response Output
     df = pd.read_csv(input_file)
 
     if df.empty:
+
         print("No incidents available.")
         return None
 
     # Alert Level
-    df["AlertLevel"] = df["Priority"].apply(get_alert_level)
+    df["AlertLevel"] = df["Severity"].apply(
+        generate_alert_level
+    )
 
     # Alert Message
     df["AlertMessage"] = df.apply(
@@ -76,10 +75,7 @@ def run_alert():
         axis=1
     )
 
-    # Alert Status
-    df["AlertStatus"] = alert_status()
-
-    # Alert Time
+    # Alert Timestamp
     df["AlertTime"] = datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
     )
@@ -104,4 +100,5 @@ def run_alert():
 # Main
 # ----------------------------------------
 if __name__ == "__main__":
+
     run_alert()

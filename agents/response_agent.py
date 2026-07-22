@@ -1,30 +1,70 @@
 import pandas as pd
 import os
 from datetime import datetime
+import sys
+
+# Add project root to Python path
+sys.path.append(
+    os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..")
+    )
+)
+
+# ----------------------------------------
+# Enterprise Tools
+# ----------------------------------------
+from tools.block_ip_tool import block_ip
+from tools.isolate_device_tool import isolate_device
+from tools.rate_limit_tool import enable_rate_limit
+from tools.email_alert_tool import send_email_alert
 
 
 # ----------------------------------------
 # Execute Response
 # ----------------------------------------
-def execute_response(decision):
+def execute_response(row):
 
-    if decision == "Block Source IP":
-        return "IP Successfully Blocked"
+    try:
 
-    elif decision == "Isolate Device":
-        return "Device Successfully Isolated"
+        decision = row.get("FinalDecision", "")
+        attack = row.get("AttackCategory", "")
 
-    elif decision == "Enable Rate Limiting":
-        return "Rate Limiting Enabled"
+        if decision == "Block Source IP":
 
-    elif decision == "Disable Device Access":
-        return "Device Access Disabled"
+            result = block_ip("192.168.1.100")
 
-    elif decision == "Continue Monitoring":
-        return "Monitoring Started"
+        elif decision == "Isolate Device":
 
-    else:
-        return "No Action Executed"
+            result = isolate_device("DESKTOP-001")
+
+        elif decision == "Enable Rate Limiting":
+
+            result = enable_rate_limit("192.168.1.100")
+
+        elif decision == "Disable Device Access":
+
+            result = isolate_device("UNKNOWN-DEVICE")
+
+        elif decision == "Continue Monitoring":
+
+            result = "Monitoring Started"
+
+        else:
+
+            result = "No Action Executed"
+
+        # Send Email Alert
+        if decision != "Continue Monitoring":
+
+            send_email_alert(
+                f"{attack} detected. Action Taken: {decision}"
+            )
+
+        return result
+
+    except Exception as error:
+
+        return f"Execution Failed : {error}"
 
 
 # ----------------------------------------
@@ -51,21 +91,24 @@ def run_response():
     print("RESPONSE AGENT")
     print("=" * 60)
 
-    # Check file
+    # Check Input File
     if not os.path.exists(input_file):
+
         print("❌ Decision output not found!")
         return None
 
-    # Read decision output
+    # Read Decision Output
     df = pd.read_csv(input_file)
 
     if df.empty:
+
         print("No incidents available.")
         return None
 
-    # Execute Response
-    df["ResponseAction"] = df["FinalDecision"].apply(
-        execute_response
+    # Execute Enterprise Tools
+    df["ResponseAction"] = df.apply(
+        execute_response,
+        axis=1
     )
 
     # Response Status
@@ -73,7 +116,7 @@ def run_response():
         response_status
     )
 
-    # Response Time
+    # Response Timestamp
     df["ResponseTime"] = datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
     )
@@ -81,12 +124,12 @@ def run_response():
     # Save Output
     df.to_csv(output_file, index=False)
 
-    # Summary
-    print("\n✅ Response Executed Successfully!\n")
+    # Display Summary
+    print("\n✅ Response Execution Completed Successfully!\n")
 
     print(f"Total Incidents : {len(df)}")
 
-    print("\nResponse Status")
+    print("\nResponse Status Distribution")
     print(df["ResponseStatus"].value_counts())
 
     print(f"\nOutput File : {output_file}")
@@ -94,8 +137,9 @@ def run_response():
     return output_file
 
 
-# ----------------------------------------
+
 # Main
-# ----------------------------------------
+
 if __name__ == "__main__":
+
     run_response()
