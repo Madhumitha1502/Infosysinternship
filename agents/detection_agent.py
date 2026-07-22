@@ -29,20 +29,23 @@ def detect_activity(row):
 
 def run_detection():
 
-    input_file = "data/cyber_logs_50_records.xlsx"
-    output_file = "data/detected_logs.xlsx"
+    input_file = "logs/live_logs.csv"
+    output_file = "data/detected_logs.csv"
 
     print("=" * 50)
     print("DETECTION AGENT")
     print("=" * 50)
 
-    # Check if dataset exists
+    # Check if input file exists
     if not os.path.exists(input_file):
         print("❌ Error: Input file not found!")
         return None
 
-    # Read dataset
-    df = pd.read_excel(input_file)
+    # Create data folder if it doesn't exist
+    os.makedirs("data", exist_ok=True)
+
+    # Read CSV file
+    df = pd.read_csv(input_file)
 
     # Apply detection rules
     df["DetectionResult"] = df.apply(detect_activity, axis=1)
@@ -52,20 +55,18 @@ def run_detection():
     normal = (df["DetectionResult"] == "Normal").sum()
 
     # Save output
-    df.to_excel(output_file, index=False)
+    df.to_csv(output_file, index=False)
 
-    # Display summary
-    print("\nDetection Completed Successfully!\n")
+    # Print summary
+    print("\n✅ Detection Completed Successfully!\n")
     print(f"Total Records      : {len(df)}")
     print(f"Suspicious Records : {suspicious}")
     print(f"Normal Records     : {normal}")
 
     print(f"\nOutput File : {output_file}")
 
-    # Return output for next agent
     return output_file
 
 
-# Run only if this file is executed directly
 if __name__ == "__main__":
     run_detection()

@@ -1,49 +1,121 @@
-from agents.detection_agent import run_detection
-from agents.analysis_agent import run_analysis
-from agents.decision_agent import run_decision
-from agents.response_agent import run_response
-from agents.alert_agent import run_alert
-from agents.report_agent import run_report
+import pandas as pd
+import os
+from datetime import datetime
 
 
-class CoordinationAgent:
+# ----------------------------------------
+# Assign Priority Based on Risk Score
+# ----------------------------------------
+def assign_priority(risk_score):
 
-    def __init__(self):
-        print("=" * 60)
-        print(" AI AGENTS COORDINATION & DECISION ENGINE ")
-        print("=" * 60)
+    if risk_score >= 90:
+        return "P1"
 
-    def orchestrate(self):
+    elif risk_score >= 70:
+        return "P2"
 
-        print("\nStarting AI Workflow...\n")
+    elif risk_score >= 40:
+        return "P3"
 
-        # Step 1
-        print("Running Detection Agent...")
-        detected_file = run_detection()
+    else:
+        return "P4"
 
-        # Step 2
-        print("\nRunning Analysis Agent...")
-        analyzed_file = run_analysis()
 
-        # Step 3
-        print("\nRunning Decision Agent...")
-        decision_file = run_decision()
+# ----------------------------------------
+# Assign Next Agent
+# ----------------------------------------
+def assign_agent(attack):
 
-        # Step 4
-        print("\nRunning Response Agent...")
-        response_file = run_response()
+    if attack in [
+        "Brute Force",
+        "Malware",
+        "DDoS",
+        "Unauthorized Device"
+    ]:
+        return "Decision Agent"
 
-        # Step 5
-        print("\nRunning Alert Agent...")
-        alert_file = run_alert()
+    return "No Action"
 
-        # Step 6
-        print("\nRunning Report Agent...")
-        report_file = run_report()
 
-        print("\n====================================")
-        print("AI Workflow Completed Successfully")
-        print("====================================")
+# ----------------------------------------
+# Workflow Status
+# ----------------------------------------
+def workflow_status(agent):
 
-        print("\nFinal Report Generated:")
-        print(report_file)
+    if agent == "Decision Agent":
+        return "Pending"
+
+    return "Completed"
+
+
+# ----------------------------------------
+# Coordination Engine
+# ----------------------------------------
+def run_coordination():
+
+    input_file = "data/analyzed_logs.csv"
+    output_file = "data/coordinated_tasks.csv"
+
+    print("=" * 60)
+    print("AI CYBER ATTACK RESPONSE COORDINATOR")
+    print("COORDINATION AGENT")
+    print("=" * 60)
+
+    if not os.path.exists(input_file):
+        print("❌ Analysis output not found!")
+        return None
+
+    df = pd.read_csv(input_file)
+
+    if df.empty:
+        print("No incidents found.")
+        return None
+
+    # New Columns
+    df["Priority"] = df["RiskScore"].apply(assign_priority)
+
+    df["AssignedAgent"] = df["AttackCategory"].apply(assign_agent)
+
+    df["WorkflowStatus"] = df["AssignedAgent"].apply(workflow_status)
+
+    df["CoordinatorTimestamp"] = datetime.now().strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
+
+    # Priority Order
+    priority_order = {
+        "P1": 1,
+        "P2": 2,
+        "P3": 3,
+        "P4": 4
+    }
+
+    df["PriorityOrder"] = df["Priority"].map(priority_order)
+
+    df = df.sort_values(by="PriorityOrder")
+
+    df.drop(columns=["PriorityOrder"], inplace=True)
+
+    # Save Output
+    df.to_csv(output_file, index=False)
+
+    print("\n✅ Coordination Completed Successfully!\n")
+
+    print(f"Total Incidents : {len(df)}")
+
+    print("\nPriority Distribution")
+    print(df["Priority"].value_counts())
+
+    print("\nAssigned Agent Distribution")
+    print(df["AssignedAgent"].value_counts())
+
+    print(f"\nOutput File : {output_file}")
+
+    return output_file
+
+
+# ----------------------------------------
+# Main
+# ----------------------------------------
+if __name__ == "__main__":
+    run_coordination()

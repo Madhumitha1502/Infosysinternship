@@ -1,40 +1,101 @@
 import pandas as pd
 import os
+from datetime import datetime
 
 
-def run_report():
+# ----------------------------------------
+# Execute Response
+# ----------------------------------------
+def execute_response(decision):
 
-    input_file = "data/alert_logs.xlsx"
-    output_file = "data/final_incident_report.xlsx"
+    if decision == "Block Source IP":
+        return "IP Successfully Blocked"
 
-    print("=" * 50)
-    print("REPORT AGENT")
-    print("=" * 50)
+    elif decision == "Isolate Device":
+        return "Device Successfully Isolated"
 
+    elif decision == "Enable Rate Limiting":
+        return "Rate Limiting Enabled"
+
+    elif decision == "Disable Device Access":
+        return "Device Access Disabled"
+
+    elif decision == "Continue Monitoring":
+        return "Monitoring Started"
+
+    else:
+        return "No Action Executed"
+
+
+# ----------------------------------------
+# Response Status
+# ----------------------------------------
+def response_status(decision):
+
+    if decision == "Continue Monitoring":
+        return "Monitoring"
+
+    return "Executed"
+
+
+# ----------------------------------------
+# Response Agent
+# ----------------------------------------
+def run_response():
+
+    input_file = "data/decision_output.csv"
+    output_file = "data/response_output.csv"
+
+    print("=" * 60)
+    print("AI CYBER ATTACK RESPONSE COORDINATOR")
+    print("RESPONSE AGENT")
+    print("=" * 60)
+
+    # Check file
     if not os.path.exists(input_file):
-        print("❌ Error: alert_logs.xlsx not found!")
+        print("❌ Decision output not found!")
         return None
 
-    df = pd.read_excel(input_file)
+    # Read decision output
+    df = pd.read_csv(input_file)
 
-    total_records = len(df)
-    suspicious_records = (df["DetectionResult"] == "Suspicious").sum()
-    normal_records = (df["DetectionResult"] == "Normal").sum()
+    if df.empty:
+        print("No incidents available.")
+        return None
 
-    print("\nGenerating Incident Report...\n")
+    # Execute Response
+    df["ResponseAction"] = df["FinalDecision"].apply(
+        execute_response
+    )
 
-    print(f"Total Records       : {total_records}")
-    print(f"Suspicious Records  : {suspicious_records}")
-    print(f"Normal Records      : {normal_records}")
+    # Response Status
+    df["ResponseStatus"] = df["FinalDecision"].apply(
+        response_status
+    )
 
-    df.to_excel(output_file, index=False)
+    # Response Time
+    df["ResponseTime"] = datetime.now().strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
 
-    print("\nIncident Report Generated Successfully!")
+    # Save Output
+    df.to_csv(output_file, index=False)
 
-    print(f"\nReport Saved As : {output_file}")
+    # Summary
+    print("\n✅ Response Executed Successfully!\n")
+
+    print(f"Total Incidents : {len(df)}")
+
+    print("\nResponse Status")
+    print(df["ResponseStatus"].value_counts())
+
+    print(f"\nOutput File : {output_file}")
 
     return output_file
 
 
+# ----------------------------------------
+# Main
+# ----------------------------------------
 if __name__ == "__main__":
-    run_report()
+    run_response()

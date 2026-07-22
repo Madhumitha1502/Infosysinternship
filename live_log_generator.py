@@ -4,10 +4,19 @@ import time
 import os
 from datetime import datetime
 
-# File path
+# ===========================================
+# Create logs folder if it doesn't exist
+# ===========================================
+
+os.makedirs("logs", exist_ok=True)
+
+# CSV file path
 LOG_FILE = "logs/live_logs.csv"
 
+# ===========================================
 # Sample Data
+# ===========================================
+
 ip_addresses = [
     "192.168.1.10",
     "192.168.1.20",
@@ -35,28 +44,50 @@ malware = [
     "No"
 ]
 
+# ===========================================
+# Generate One Random Cyber Log
+# ===========================================
 
 def generate_log():
-    """
-    Generate a single random cyber log.
-    """
+
+    failed = random.randint(0, 15)
+    mal = random.choice(malware)
+    traffic = random.choice(network_traffic)
+    device = random.choice(devices)
+
+    # Decide Attack Type
+    if failed >= 10:
+        attack = "Brute Force"
+
+    elif mal == "Yes":
+        attack = "Malware"
+
+    elif traffic == "Very High":
+        attack = "DDoS"
+
+    elif device == "Unknown":
+        attack = "Unauthorized Device"
+
+    else:
+        attack = "Normal"
 
     log = {
         "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "IPAddress": random.choice(ip_addresses),
-        "FailedLoginAttempts": random.randint(0, 15),
-        "MalwareDetected": random.choice(malware),
-        "NetworkTraffic": random.choice(network_traffic),
-        "Device": random.choice(devices)
+        "FailedLoginAttempts": failed,
+        "MalwareDetected": mal,
+        "NetworkTraffic": traffic,
+        "Device": device,
+        "AttackType": attack
     }
 
     return log
 
+# ===========================================
+# Save Log into CSV
+# ===========================================
 
 def save_log(log):
-    """
-    Save generated log into CSV file.
-    """
 
     df = pd.DataFrame([log])
 
@@ -65,28 +96,22 @@ def save_log(log):
     else:
         df.to_csv(LOG_FILE, index=False)
 
+# ===========================================
+# Main Program
+# ===========================================
 
-def start_generator():
-    """
-    Continuously generate logs every 2 seconds.
-    """
+if __name__ == "__main__":
 
-    print("=" * 50)
-    print("LIVE CYBER LOG GENERATOR STARTED")
-    print("=" * 50)
+    print("=" * 60)
+    print(" LIVE CYBER LOG GENERATOR STARTED ")
+    print("=" * 60)
 
     while True:
 
-        new_log = generate_log()
+        log = generate_log()
 
-        save_log(new_log)
+        save_log(log)
 
-        print("New Log Generated:")
-        print(new_log)
-        print("-" * 50)
+        print(log)
 
-        time.sleep(2)
-
-
-if __name__ == "__main__":
-    start_generator()
+        time.sleep(5)

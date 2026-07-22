@@ -1,0 +1,3 @@
+Timestamp,IPAddress,FailedLoginAttempts,MalwareDetected,NetworkTraffic,Device,AttackType,Severity
+2026-07-19...,192.168.1.10,12,Yes,High,Desktop,Brute Force,Critical
+2026-07-19...,192.168.1.20,3,No,Medium,Laptop,Normal,Low

@@ -1,0 +1,21 @@
+Timestamp,IPAddress,FailedLoginAttempts,MalwareDetected,NetworkTraffic,Device,DetectionResult,Severity,AttackCategory,RiskScore,RecommendedAction,Priority,AssignedAgent,WorkflowStatus,CoordinatorTimestamp,FinalDecision,ExecutionStatus,DecisionTime
+2026-07-19 19:21:14,192.168.1.40,15,No,Very High,Unknown,Suspicious,Critical,Brute Force,95,Block Source IP,P1,Decision Agent,Pending,2026-07-21 19:28:14,Block Source IP,Approved,2026-07-21 19:28:14
+2026-07-19 19:21:59,192.168.1.40,14,Yes,Very High,Laptop,Suspicious,Critical,Brute Force,95,Block Source IP,P1,Decision Agent,Pending,2026-07-21 19:28:14,Block Source IP,Approved,2026-07-21 19:28:14
+2026-07-19 19:21:19,192.168.1.30,4,Yes,Low,Unknown,Suspicious,High,Malware,80,Isolate Device,P2,Decision Agent,Pending,2026-07-21 19:28:14,Isolate Device,Approved,2026-07-21 19:28:14
+2026-07-19 19:20:14,192.168.1.30,10,Yes,Low,Mobile,Suspicious,High,Brute Force,80,Block Source IP,P2,Decision Agent,Pending,2026-07-21 19:28:14,Block Source IP,Approved,2026-07-21 19:28:14
+2026-07-19 19:21:39,192.168.1.30,12,Yes,High,Laptop,Suspicious,High,Brute Force,80,Block Source IP,P2,Decision Agent,Pending,2026-07-21 19:28:14,Block Source IP,Approved,2026-07-21 19:28:14
+2026-07-19 19:21:54,192.168.1.10,14,Yes,Low,Desktop,Suspicious,High,Brute Force,80,Block Source IP,P2,Decision Agent,Pending,2026-07-21 19:28:14,Block Source IP,Approved,2026-07-21 19:28:14
+2026-07-19 19:20:29,192.168.1.40,0,No,Very High,Unknown,Suspicious,High,DDoS,80,Enable Rate Limiting,P2,Decision Agent,Pending,2026-07-21 19:28:14,Enable Rate Limiting,Approved,2026-07-21 19:28:14
+2026-07-19 19:20:19,192.168.1.30,9,Yes,High,Desktop,Suspicious,Medium,Malware,60,Isolate Device,P3,Decision Agent,Pending,2026-07-21 19:28:14,Isolate Device,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:20:54,192.168.1.20,2,Yes,Low,Laptop,Suspicious,Medium,Malware,60,Isolate Device,P3,Decision Agent,Pending,2026-07-21 19:28:14,Isolate Device,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:20:44,192.168.1.20,0,Yes,Low,Laptop,Suspicious,Medium,Malware,60,Isolate Device,P3,Decision Agent,Pending,2026-07-21 19:28:14,Isolate Device,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:21:04,192.168.1.40,12,No,High,Laptop,Suspicious,Medium,Brute Force,60,Block Source IP,P3,Decision Agent,Pending,2026-07-21 19:28:14,Block Source IP,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:20:59,192.168.1.10,14,No,Medium,Desktop,Suspicious,Medium,Brute Force,60,Block Source IP,P3,Decision Agent,Pending,2026-07-21 19:28:14,Block Source IP,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:21:09,192.168.1.40,1,Yes,High,Laptop,Suspicious,Medium,Malware,60,Isolate Device,P3,Decision Agent,Pending,2026-07-21 19:28:14,Isolate Device,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:20:34,192.168.1.50,13,No,Medium,Desktop,Suspicious,Medium,Brute Force,60,Block Source IP,P3,Decision Agent,Pending,2026-07-21 19:28:14,Block Source IP,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:20:09,192.168.1.40,2,No,High,Unknown,Suspicious,Medium,Unauthorized Device,60,Verify Device,P3,Decision Agent,Pending,2026-07-21 19:28:14,Disable Device Access,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:20:04,192.168.1.10,14,No,Medium,Mobile,Suspicious,Medium,Brute Force,60,Block Source IP,P3,Decision Agent,Pending,2026-07-21 19:28:14,Block Source IP,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:21:34,192.168.1.20,5,Yes,High,Laptop,Suspicious,Medium,Malware,60,Isolate Device,P3,Decision Agent,Pending,2026-07-21 19:28:14,Isolate Device,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:21:29,192.168.1.10,6,No,Medium,Unknown,Suspicious,Medium,Unauthorized Device,60,Verify Device,P3,Decision Agent,Pending,2026-07-21 19:28:14,Disable Device Access,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:21:24,192.168.1.30,9,Yes,Low,Mobile,Suspicious,Medium,Malware,60,Isolate Device,P3,Decision Agent,Pending,2026-07-21 19:28:14,Isolate Device,Monitoring,2026-07-21 19:28:14
+2026-07-19 19:21:44,192.168.1.30,2,Yes,High,Mobile,Suspicious,Medium,Malware,60,Isolate Device,P3,Decision Agent,Pending,2026-07-21 19:28:14,Isolate Device,Monitoring,2026-07-21 19:28:14

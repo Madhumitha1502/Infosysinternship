@@ -1,0 +1,26 @@
+Timestamp,IPAddress,FailedLoginAttempts,MalwareDetected,NetworkTraffic,Device,DetectionResult
+2026-07-19 19:19:59,192.168.1.30,1,No,High,Mobile,Normal
+2026-07-19 19:20:04,192.168.1.10,14,No,Medium,Mobile,Brute Force
+2026-07-19 19:20:09,192.168.1.40,2,No,High,Unknown,Unauthorized Device
+2026-07-19 19:20:14,192.168.1.30,10,Yes,Low,Mobile,Brute Force
+2026-07-19 19:20:19,192.168.1.30,9,Yes,High,Desktop,Malware
+2026-07-19 19:20:24,192.168.1.10,1,No,High,Mobile,Normal
+2026-07-19 19:20:29,192.168.1.40,0,No,Very High,Unknown,DDoS
+2026-07-19 19:20:34,192.168.1.50,13,No,Medium,Desktop,Brute Force
+2026-07-19 19:20:39,192.168.1.50,5,No,Medium,Desktop,Normal
+2026-07-19 19:20:44,192.168.1.20,0,Yes,Low,Laptop,Malware
+2026-07-19 19:20:49,192.168.1.20,3,No,High,Mobile,Normal
+2026-07-19 19:20:54,192.168.1.20,2,Yes,Low,Laptop,Malware
+2026-07-19 19:20:59,192.168.1.10,14,No,Medium,Desktop,Brute Force
+2026-07-19 19:21:04,192.168.1.40,12,No,High,Laptop,Brute Force
+2026-07-19 19:21:09,192.168.1.40,1,Yes,High,Laptop,Malware
+2026-07-19 19:21:14,192.168.1.40,15,No,Very High,Unknown,Brute Force
+2026-07-19 19:21:19,192.168.1.30,4,Yes,Low,Unknown,Malware
+2026-07-19 19:21:24,192.168.1.30,9,Yes,Low,Mobile,Malware
+2026-07-19 19:21:29,192.168.1.10,6,No,Medium,Unknown,Unauthorized Device
+2026-07-19 19:21:34,192.168.1.20,5,Yes,High,Laptop,Malware
+2026-07-19 19:21:39,192.168.1.30,12,Yes,High,Laptop,Brute Force
+2026-07-19 19:21:44,192.168.1.30,2,Yes,High,Mobile,Malware
+2026-07-19 19:21:49,192.168.1.20,5,No,Medium,Mobile,Normal
+2026-07-19 19:21:54,192.168.1.10,14,Yes,Low,Desktop,Brute Force
+2026-07-19 19:21:59,192.168.1.40,14,Yes,Very High,Laptop,Brute Force
