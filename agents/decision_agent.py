@@ -3,9 +3,9 @@ import os
 from datetime import datetime
 
 
-# ----------------------------------------
+
 # Select Final Decision
-# ----------------------------------------
+
 def select_decision(attack, priority):
 
     try:
