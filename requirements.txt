@@ -1,7 +1,0 @@
-Requirements that used in this projects(basic):
-pandas
-openpyxl
-langchain
-langgraph
-python-dotenv
-streamlit
