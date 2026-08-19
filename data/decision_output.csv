@@ -1,0 +1,6 @@
+incident_id,action,justification,requires_human_approval,decision_method
+INC-LOG-105-967966,quarantine_device,Default policy action for Ransomware at risk score 94.5 (severity: Critical).,False,heuristic
+INC-LOG-103-9FCD4B,rate_limit,Default policy action for DDoS at risk score 87.5 (severity: Critical).,False,heuristic
+INC-LOG-101-F105B9,block_ip,Default policy action for Brute Force at risk score 81.5 (severity: High).,False,heuristic
+INC-LOG-102-432B2E,generate_firewall_rule,Default policy action for SQL Injection at risk score 70.2 (severity: High).,False,heuristic
+INC-LOG-104-2A1702,block_ip,Default policy action for Port Scanning at risk score 47.2 (severity: Low).,False,heuristic

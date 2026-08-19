@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-cyber-response
+spec:
+  selector:
+    app: ai-cyber-response
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer   # use ClusterIP + an Ingress instead if you already have an ingress controller

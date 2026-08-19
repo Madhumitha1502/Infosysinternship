@@ -1,0 +1,16 @@
+log_id,timestamp,source_ip,destination_ip,destination_port,protocol,user,asset,asset_criticality,bytes_transferred,request_count,payload_snippet,status
+1,2026-08-07T01:12:03Z,203.0.113.45,10.0.0.12,443,TCP,jsmith,web-app-01,High,15320,42,"' OR 1=1 -- login bypass attempt",flagged
+2,2026-08-07T01:14:11Z,198.51.100.23,10.0.0.5,22,TCP,root,bastion-01,Critical,890,215,"215 failed SSH login attempts in 60s",flagged
+3,2026-08-07T01:15:45Z,192.0.2.88,10.0.0.0/24,80,TCP,,edge-lb-01,High,52000000,98000,"SYN flood from botnet cluster",flagged
+4,2026-08-07T01:18:02Z,203.0.113.77,10.0.0.30,3389,TCP,,workstation-14,Medium,1200,3000,"sequential port scan 1-65535",flagged
+5,2026-08-07T01:20:31Z,198.51.100.201,10.0.0.41,445,TCP,svc_backup,file-server-02,Critical,980000,5,"suspicious binary dropped: invoice_2026.exe.encrypted",flagged
+6,2026-08-07T01:22:10Z,192.0.2.14,10.0.0.9,25,TCP,,mail-gateway-01,Medium,4300,1,"phishing email with credential harvesting link",flagged
+7,2026-08-07T01:25:55Z,10.0.0.30,10.0.0.5,22,TCP,jdoe,bastion-01,Critical,600,1,"standard user attempted sudo su root without authorization",flagged
+8,2026-08-07T01:28:19Z,203.0.113.99,10.0.0.12,443,TCP,anonymous,web-app-01,High,3200,7,"UNION SELECT username,password FROM users--",flagged
+9,2026-08-07T01:30:44Z,198.51.100.5,10.0.0.60,3306,TCP,dbadmin,db-prod-01,Critical,2100,1,"login from new geolocation with valid creds",flagged
+10,2026-08-07T01:33:02Z,203.0.113.150,10.0.0.12,443,TCP,,web-app-01,High,700,1,"normal GET /index.html",normal
+11,2026-08-07T01:35:20Z,192.0.2.201,10.0.0.77,3389,TCP,administrator,workstation-22,Medium,890,412,"RDP brute force - 412 attempts",flagged
+12,2026-08-07T01:38:47Z,198.51.100.88,10.0.0.15,443,TCP,,web-app-02,Medium,510,1,"normal GET /api/health",normal
+13,2026-08-07T01:41:12Z,203.0.113.210,10.0.0.60,3306,TCP,,db-prod-01,Critical,15000,1,"ransomware note dropped: README_DECRYPT.txt",flagged
+14,2026-08-07T01:44:33Z,192.0.2.55,10.0.0.5,22,TCP,svc_deploy,bastion-01,Critical,700,50,"credential stuffing using leaked password list",flagged
+15,2026-08-07T01:47:58Z,198.51.100.140,10.0.0.90,443,TCP,,api-gateway-01,High,3300,60000,"HTTP flood - 60000 req/min",flagged

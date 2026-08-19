@@ -1,0 +1,6 @@
+log_id,timestamp,source_ip,destination_ip,destination_port,protocol,user,asset,asset_criticality,bytes_transferred,request_count,payload_snippet,status
+LOG-101,2026-08-17 18:20:01,185.220.101.42,10.0.0.15,22,TCP,admin,bastion-01,5,18200,215,215 failed SSH login attempts in 60s from same source,failed
+LOG-102,2026-08-17 18:21:14,45.77.21.90,10.0.0.20,443,TCP,unknown,web-01,4,98500,120,"GET /login?id=1 UNION SELECT username,password FROM users",blocked
+LOG-103,2026-08-17 18:22:30,91.198.174.10,10.0.0.25,80,TCP,unknown,firewall-01,5,450000,5000,SYN flood detected: 5000 connection attempts in 10 seconds,detected
+LOG-104,2026-08-17 18:23:05,103.45.67.89,10.0.0.30,0,TCP,unknown,workstation-14,3,12000,85,"nmap port scan detected across ports 21,22,80,443",detected
+LOG-105,2026-08-17 18:24:42,172.16.5.44,10.0.0.40,445,TCP,employee,file-server-01,5,780000,320,Ransomware behavior detected: files encrypted and ransom note created,isolated

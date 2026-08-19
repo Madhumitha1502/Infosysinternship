@@ -1,0 +1,61 @@
+# Kubernetes Deployment for the AI Cyber Attack Response Coordinator.
+# Works on any managed K8s (AKS on Azure, EKS on AWS, GKE on GCP) once you've
+# pushed the Docker image built from the repo's Dockerfile to that cloud's
+# container registry. See deploy/README.md for the full per-cloud walkthrough.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-cyber-response
+  labels:
+    app: ai-cyber-response
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ai-cyber-response
+  template:
+    metadata:
+      labels:
+        app: ai-cyber-response
+    spec:
+      containers:
+        - name: api
+          image: ai-cyber-response:latest   # replace with your registry/tag, e.g. myregistry.azurecr.io/ai-cyber-response:1.0.0
+          ports:
+            - containerPort: 8000
+          env:
+            - name: LLM_PROVIDER
+              value: "none"
+            - name: DRY_RUN
+              value: "true"
+            - name: ENVIRONMENT
+              value: "production"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+            - name: reports
+              mountPath: /app/reports
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: reports
+          emptyDir: {}

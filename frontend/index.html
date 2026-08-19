@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Cyber Attack Response Coordinator</title>
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="shell">
+
+    <!-- Top command bar -->
+    <div class="topbar">
+      <div class="brand">
+        <span class="brand__mark">SOC-01</span>
+        <div>
+          <div class="brand__title">AI Cyber Attack Response Coordinator</div>
+          <div class="brand__sub" id="lastRun">no run yet this session</div>
+        </div>
+      </div>
+      <div class="topbar__right">
+        <div class="status-pill" id="healthPill">
+          <span class="status-dot" id="healthDot"></span>
+          <span id="healthText">checking backend&hellip;</span>
+        </div>
+        <span class="csv-source" id="csvSourceLabel" title="Dataset the next pipeline run will use">sample data</span>
+        <input type="file" id="csvFileInput" accept=".csv" hidden />
+        <button class="btn btn--ghost" id="uploadBtn">Upload CSV</button>
+        <button class="btn" id="runBtn">Run pipeline</button>
+      </div>
+    </div>
+
+    <div class="upload-status" id="uploadStatus" hidden></div>
+
+    <!-- Signature element: risk pulse -->
+    <div class="pulse">
+      <div class="pulse__head">
+        <span class="pulse__label">Risk pulse &middot; ranked incident queue</span>
+        <span class="pulse__reading" id="pulseReading">&mdash;</span>
+      </div>
+      <svg id="pulseSvg" viewBox="0 0 800 64" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="pulseGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.55" />
+            <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0" />
+          </linearGradient>
+          <clipPath id="pulseClip"><rect x="0" y="0" width="800" height="64" /></clipPath>
+        </defs>
+        <g clip-path="url(#pulseClip)">
+          <path class="pulse__fill" id="pulseFill" d="" />
+          <path class="pulse__line" id="pulseLine" d="" />
+          <g id="pulseDots"></g>
+          <rect class="pulse__scan pulse__scanline" x="0" y="0" width="2" height="64" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Agent workflow orchestration panel -->
+    <div class="panel workflow">
+      <div class="panel__head">
+        <span class="panel__title">Agent workflow</span>
+        <span class="panel__count" id="workflowStatus">idle</span>
+      </div>
+      <div class="workflow__track" id="workflowTrack"></div>
+    </div>
+
+    <!-- Main grid: incident queue + right rail -->
+    <div class="grid">
+
+      <div class="panel">
+        <div class="panel__head">
+          <span class="panel__title">Incident queue</span>
+          <span class="panel__count" id="incidentCount">0 incidents</span>
+        </div>
+        <div class="table-wrap">
+          <table class="incidents" id="incidentsTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Incident</th>
+                <th>Threat</th>
+                <th>Severity</th>
+                <th>Risk</th>
+                <th>Asset</th>
+                <th>Action</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="incidentsBody"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState">
+            <div class="empty-state__title">No incidents tracked yet</div>
+            <div class="empty-state__body">Run the pipeline to load the sample network log dataset through detection, analysis, coordination, decision, response, and alerting.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail">
+        <div class="panel">
+          <div class="panel__head">
+            <span class="panel__title">Run summary</span>
+          </div>
+          <div class="stat-row"><span class="stat-row__label">Logs processed</span><span class="stat-row__value" id="statLogs">&mdash;</span></div>
+          <div class="stat-row"><span class="stat-row__label">Incidents</span><span class="stat-row__value" id="statIncidents">&mdash;</span></div>
+          <div class="stat-row"><span class="stat-row__label">Auto-responded</span><span class="stat-row__value" id="statResponded">&mdash;</span></div>
+          <div class="stat-row"><span class="stat-row__label">Pending approval</span><span class="stat-row__value" id="statPending">&mdash;</span></div>
+          <div class="stat-row"><span class="stat-row__label">Alerts sent</span><span class="stat-row__value" id="statAlerts">&mdash;</span></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__head">
+            <span class="panel__title">Severity breakdown</span>
+          </div>
+          <div class="sev-bars" id="sevBars">
+            <div class="sev-bar-row"><span class="sev-name">CRIT</span><div class="sev-track"><div class="sev-fill Critical" style="width:0%"></div></div><span class="sev-count">0</span></div>
+            <div class="sev-bar-row"><span class="sev-name">HIGH</span><div class="sev-track"><div class="sev-fill High" style="width:0%"></div></div><span class="sev-count">0</span></div>
+            <div class="sev-bar-row"><span class="sev-name">MED</span><div class="sev-track"><div class="sev-fill Medium" style="width:0%"></div></div><span class="sev-count">0</span></div>
+            <div class="sev-bar-row"><span class="sev-name">LOW</span><div class="sev-track"><div class="sev-fill Low" style="width:0%"></div></div><span class="sev-count">0</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__head">
+            <span class="panel__title">Executive summary</span>
+          </div>
+          <div class="summary-body muted" id="execSummary">Run the pipeline to generate a summary.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event tail -->
+    <div class="tail collapsed" id="tailPanel">
+      <div class="tail__head" id="tailToggle">
+        <span class="tail__title">Audit event stream</span>
+        <span class="tail__chevron">&#9660;</span>
+      </div>
+      <div class="tail__body" id="tailBody">
+        <div class="tail__line">No events yet.</div>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <span>network_logs.csv &middot; heuristic + LLM hybrid pipeline</span>
+      <span><a href="/docs">API docs</a></span>
+    </footer>
+  </div>
+
+  <!-- Detail drawer -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer__head">
+      <div>
+        <div class="drawer__id" id="drawerId">&mdash;</div>
+        <div class="drawer__title" id="drawerTitle">Incident detail</div>
+      </div>
+      <button class="drawer__close" id="drawerClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="drawer__body" id="drawerBody"></div>
+    <div class="drawer__footer" id="drawerFooter"></div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>

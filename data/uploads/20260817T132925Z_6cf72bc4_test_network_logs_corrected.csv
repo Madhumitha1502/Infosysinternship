@@ -1,0 +1,6 @@
+log_id,timestamp,source_ip,destination_ip,source_port,destination_port,protocol,event_type,username,failed_attempts,bytes_sent,bytes_received,affected_host
+LOG-001,2026-08-17 18:10:01,185.220.101.42,10.0.0.15,54321,22,TCP,failed_login,admin,18,1240,980,bastion-01
+LOG-002,2026-08-17 18:10:15,185.220.101.42,10.0.0.15,54322,22,TCP,failed_login,root,25,1510,1020,bastion-01
+LOG-003,2026-08-17 18:11:03,45.77.21.90,10.0.0.20,49120,443,TCP,suspicious_request,unknown,0,48200,3200,web-01
+LOG-004,2026-08-17 18:12:44,10.0.0.25,10.0.0.30,51544,3306,TCP,unusual_database_access,app_user,0,86000,12500,database-01
+LOG-005,2026-08-17 18:14:09,10.0.0.40,10.0.0.50,53000,53,UDP,normal_dns_query,system,0,320,760,dns-01

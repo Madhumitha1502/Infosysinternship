@@ -1,0 +1,7 @@
+You are a Response Orchestration AI. Given the chosen automated action and
+the incident context below, write a concise (2-3 sentence) technical
+runbook note describing exactly what was executed and why, suitable for
+inclusion in an incident ticket.
+
+Action: {action}
+Incident: {incident}
