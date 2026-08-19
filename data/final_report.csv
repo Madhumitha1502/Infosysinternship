@@ -1,2 +1,0 @@
-Report Generated On,Total Incidents,Attack Summary,Severity Summary,Tool Usage Summary,Response Summary,Alert Summary
-2026-07-22 20:20:11,20,"{'Brute Force': 9, 'Malware': 8, 'Unauthorized Device': 2, 'DDoS': 1}","{'Medium': 13, 'High': 5, 'Critical': 2}","{'Isolate Device Tool': 10, 'Block IP Tool': 9, 'Rate Limit Tool': 1}",{'Executed': 20},"{'Low': 13, 'Medium': 5, 'High': 2}"
